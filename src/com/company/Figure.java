@@ -1,5 +1,5 @@
 package com.company;
 
-public class Figure {
+public abstract class Figure implements IMovable{
 
 }

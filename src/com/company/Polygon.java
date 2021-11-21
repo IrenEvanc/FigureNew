@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class Polygon extends Figure implements IMovable{
     Point pointA;
     Point pointB;
@@ -12,6 +14,18 @@ public class Polygon extends Figure implements IMovable{
         this.a = Math.abs(pointA.x- pointB.x);
         this.b = Math.abs(pointA.y- pointB.y);
     }
+    public static Polygon inputPolygon () {
+        System.out.println("Введите координаты вершин");
+        Scanner in = new Scanner(System.in);
+        int x = in.nextInt();
+        int y = in.nextInt();
+        Point pointA = new Point(x,y);
+        x = in.nextInt();
+        y = in.nextInt();
+        Point pointB = new Point(x,y);
+        return  new Polygon(pointA, pointB);
+    }
+
     public double getPerimetr () {
         double perimetr = a+b;
         return  perimetr;
