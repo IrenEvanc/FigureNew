@@ -16,7 +16,7 @@ class PolygonTest {
 
     @Test
     void getPerimetr() {
-        assertEquals(p.getPerimetr(), 9);
+        assertEquals(p.getPerimetr(), 18);
     }
 
     @Test
