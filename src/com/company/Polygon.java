@@ -27,7 +27,7 @@ public class Polygon extends Figure implements IMovable{
     }
 
     public double getPerimetr () {
-        double perimetr = a+b;
+        double perimetr = 2*(a+b);
         return  perimetr;
     }
     public double getAree () {
