@@ -9,15 +9,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Triangle t = new Triangle(new Point(5, 6), new Point(2, 1), new Point(3, 5));
-        Triangle t1 = new Triangle(new Point(1, 3), new Point(2, 5), new Point(3, 4));
-        Triangle t2 = new Triangle(new Point(0, 6), new Point(2, 2), new Point(3, 5));
-        Polygon n = new Polygon(new Point(8, 5), new Point(1, 5));
-        Circle c = new Circle(new Point(4, 5), 5);
-
-
+        ArrayList<Point> triangle = new ArrayList<>();
+        Collections.addAll(triangle, new Point(3,2), new Point(5,1), new Point(1,1));
+        Triangle t = new Triangle(triangle);
+        ArrayList<Point> triangle1 = new ArrayList<>();
+        Collections.addAll(triangle1, new Point(5,5), new Point(5,1), new Point(1,1));
+        Triangle t1 = new Triangle(triangle1);
+        ArrayList<Point> rectangle = new ArrayList<>();
+        Collections.addAll(rectangle, new Point(5,5), new Point(5,1), new Point(1,1), new Point(1,5));
+        Rectangle r = new Rectangle(rectangle);
+////        Circle c = new Circle(new Point(4, 5), 5);
+////
+////
         ArrayList<Figure> figures = new ArrayList<>();
-        Collections.addAll(figures, t, t1, t2, n, c);
+        Collections.addAll(figures, t, t1, r);
 
 //        ArrayList <IMovable> figures = new ArrayList<>();
 //        Collections.addAll(figures, t, t1, t2, n, c);
@@ -50,7 +55,13 @@ public class Main {
                     Figure figure = figureCreator.creatFigure();
                     figures.add(figure);
                     break;
-//            case 3:
+//                case 3:
+//                    System.out.println("Выберите фигуру, которую нужно изменить");
+//                    num = in.nextInt();
+//                    FigureCreator changeFigure;
+//                    changeFigure = changeFigure ();
+//                    figures.add(figure);
+//                    break;
 
                 case 4:
                     printFigure(figures);
@@ -88,7 +99,7 @@ public class Main {
                 figureCreator = new CircleCreator();
                 break;
             case 3:
-                figureCreator = new PolygonCreator();
+                figureCreator = new RectangleCreator();
                 break;
             default:
                 System.out.println("Введите правильное значение");
@@ -96,5 +107,29 @@ public class Main {
         }
         return figureCreator;
     }
+//    static  FigureCreator changeFigure() {
+//        System.out.println("Выберите, что хотите сделать с фигурой");
+//        System.out.println("1. Повернуть");
+//        System.out.println("2. Масштабировать");
+//        System.out.println("3. Перемещение");
+//        FigureCreator changeCreator;
+//        Scanner in = new Scanner(System.in);
+//        int n = in.nextInt();
+//        switch (n) {
+//            case 1:
+//                changeCreator = new TriangleCreator();
+//                break;
+//            case 2:
+//                changeCreator = new CircleCreator();
+//                break;
+//            case 3:
+//                changeCreator = new RectangleCreator();
+//                break;
+//            default:
+//                System.out.println("Введите правильное значение");
+//                return selectFigure();
+//        }
+//        return changeCreator;
+//    }
 }
 
