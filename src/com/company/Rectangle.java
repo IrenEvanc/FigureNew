@@ -12,10 +12,10 @@ public class Rectangle extends Polygon{
 
         public static  Rectangle inputRectangle() {
 
-            ArrayList <Point> points = new ArrayList<Point>();
+            ArrayList <Point> points = new ArrayList<Point>(4);
             System.out.println("Введите координаты вершин");
             Scanner in = new Scanner(System.in);
-            for (int i=0; i<4; i++) {
+            for (int i=0; i<points.size(); i++) {
                 int x = in.nextInt();
                 int y = in.nextInt();
                 points.add(new Point(x,y));

@@ -18,11 +18,11 @@ public class Triangle extends Polygon {
 //        this.BC = Math.sqrt(Math.pow(pointB.x - pointC.x, 2) + Math.pow(pointB.y - pointC.y, 2));
 //        this.AC = Math.sqrt(Math.pow(pointA.x - pointC.x, 2) + Math.pow(pointA.y - pointC.y, 2));
 //    }
-    public static Triangle inputTriangl () {
+    public static Triangle inputTriangl (int size) {
         ArrayList <Point> points = new ArrayList<>();
-        System.out.println("Введите координаты вершин треугольника");
+        System.out.println("Введите координаты вершин");
         Scanner in = new Scanner(System.in);
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<size; i++) {
             int x = in.nextInt();
             int y = in.nextInt();
             points.add(new Point(x,y));

@@ -4,6 +4,6 @@ public class CircleCreator extends FigureCreator{
 
     @Override
     public Figure creatFigure () {
-        return Circle.inputCircle();
+        return Circle.inputCircle(2);
     }
 }
