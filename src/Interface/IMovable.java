@@ -1,4 +1,6 @@
-package com.company;
+package Interface;
+
+import com.company.Point;
 
 public interface IMovable {
 

@@ -1,5 +1,7 @@
-package com.company;
+package Test;
 
+import Figures.Circle;
+import com.company.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
