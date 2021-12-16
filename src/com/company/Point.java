@@ -1,10 +1,10 @@
 package com.company;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Point {
-
-
+public class Point implements Serializable {
+//    private  static final long serialVersionUID = 2L;
 
     private double x;
     private double y;

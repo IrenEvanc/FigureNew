@@ -54,10 +54,10 @@ public class Polygon extends Figure {
     @Override
     public void rotate(double angle) {
         angle = angle * Math.PI / 180;
-        for (int i = 1; i < points.size(); i++) {
+        for (int i = 0; i < points.size(); i++) {
             double x = (points.get(i).getX() - center.getX()) * Math.cos(angle) - (points.get(i).getY() - center.getY()) * Math.sin(angle);
             double y = (points.get(i).getX() - center.getX()) * Math.sin(angle) + (points.get(i).getY() - center.getY()) * Math.cos(angle);
-            points.set(i, new Point(x, y));
+            points.set(i, new Point(x+center.getX(), y+center.getY()));
         }
 
     }
@@ -93,5 +93,26 @@ public class Polygon extends Figure {
     public String toString () {
         return  " с вершинами в точках: " + points +"\n " +
                 "со следующими характеристиками: \n" + "периметр = " + getPerimetr() + ", \n" + "площадь = " + getArea()+ "\n ";
+    }
+    @Override
+    public boolean containPoint(int x, int y, int multiplierX, int multiplierY) {
+        boolean flag = false;
+        for (int i = 0; i < this.getPoints().size(); i++) {
+            int j = i == this.getPoints().size() - 1 ? 0 : i + 1;
+            double x1 = this.getPoints().get(i).getX() * multiplierX;
+            double x2 = this.getPoints().get(j).getX() * multiplierX;
+            double y1 = this.getPoints().get(i).getY() * multiplierY;
+            double y2 = this.getPoints().get(j).getY() * multiplierY;
+
+            if(x2-x1!=0) {
+                double a = (y2 - y1) / (x2 - x1);
+                double b = y1 - a * x1;
+                if ((Math.abs(y - (int) (a * x + b)) <= 2)) flag = true;
+            }
+            else{
+                if ((Math.abs(x - x1) <= 2)&&(y>=Math.min(y1, y2) && y<=Math.max(y1, y2))) flag = true;
+            }
+        }
+        return flag;
     }
 }

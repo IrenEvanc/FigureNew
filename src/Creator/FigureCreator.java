@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public abstract class FigureCreator {
 
 
-    public abstract Figure create();
+    public abstract Figure create(ArrayList<Point> points);
 
 }

@@ -1,15 +1,16 @@
-//package Creator;
-//
-//import Creator.FigureCreator;
-//import Figures.Figure;
-//import Figures.Polygon;
-//import Figures.Triangle;
-//
-//public class PolygonCreator extends FigureCreator {
-//
-//    @Override
-//    public Figure create () {
-//
-//        return new Polygon(Figure.input());
-//    }
-//}
+package Creator;
+
+import Figures.Figure;
+import Figures.Polygon;
+import com.company.Point;
+
+import java.util.ArrayList;
+
+public class PolygonCreator extends FigureCreator {
+
+    @Override
+    public Figure create (ArrayList<Point> points) {
+
+        return new Polygon(points);
+    }
+}
