@@ -80,7 +80,7 @@ public abstract class Figure implements IMovable, IRotate, IScale, Serializable 
     public abstract String getName();
     public abstract String toString ();
 
-    public abstract boolean containPoint(int x, int y, int multiplierX, int multiplierY);
+    public abstract boolean containPoint(int x, int y, int multiplier);
 
 }
 

@@ -95,14 +95,14 @@ public class Polygon extends Figure {
                 "со следующими характеристиками: \n" + "периметр = " + getPerimetr() + ", \n" + "площадь = " + getArea()+ "\n ";
     }
     @Override
-    public boolean containPoint(int x, int y, int multiplierX, int multiplierY) {
+    public boolean containPoint(int x, int y, int multiplier) {
         boolean flag = false;
         for (int i = 0; i < this.getPoints().size(); i++) {
             int j = i == this.getPoints().size() - 1 ? 0 : i + 1;
-            double x1 = this.getPoints().get(i).getX() * multiplierX;
-            double x2 = this.getPoints().get(j).getX() * multiplierX;
-            double y1 = this.getPoints().get(i).getY() * multiplierY;
-            double y2 = this.getPoints().get(j).getY() * multiplierY;
+            double x1 = this.getPoints().get(i).getX() * multiplier;
+            double x2 = this.getPoints().get(j).getX() * multiplier;
+            double y1 = this.getPoints().get(i).getY() * multiplier;
+            double y2 = this.getPoints().get(j).getY() * multiplier;
 
             if(x2-x1!=0) {
                 double a = (y2 - y1) / (x2 - x1);

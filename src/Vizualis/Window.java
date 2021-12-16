@@ -4,6 +4,7 @@ import Creator.*;
 import Figures.Figure;
 import Figures.Triangle;
 import com.company.Point;
+import menu.Menu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +13,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import static com.company.Main.file;
+
 public class Window extends JFrame implements ActionListener {
     private final ArrayList<Figure> figures;
     private  ArrayList<Figure> fig;
     private Graph canvas;
     private JPanel panel;
     private JFrame addFigure;
+    private Font font;
     boolean chooseFigure = false;
     double angle, scale;
     Point vect;
@@ -38,6 +42,7 @@ public class Window extends JFrame implements ActionListener {
         this.panel = new JPanel();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.font = new Font("Verdana", Font.ITALIC, 16);
 //        setExtendedState(MAXIMIZED_BOTH);
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(createFileMenu());
@@ -48,41 +53,50 @@ public class Window extends JFrame implements ActionListener {
     }
 
     private JMenu createFileMenu() {
-        JMenu file = new JMenu("Файл");
+        JMenu carte = new JMenu("Файл");
+        carte.setFont(font);
         JMenuItem open = new JMenuItem("Открыть");
         JMenuItem exit = new JMenuItem(new ExitAction());
-        file.add(open);
-        file.addSeparator();
-        file.add(exit);
-
+        JMenuItem save = new JMenuItem("Сохранить");
+        carte.add(open);
+        carte.addSeparator();
+        carte.add(save);
+        carte.addSeparator();
+        carte.add(exit);
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("ActionListener.actionPerformed : open");
+                Menu.saveToFile(figures,file);
             }
         });
-        return file;
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                Menu.initFromFile(file);
+                canvas.repaintGraph(figures);
+            }
+        });
+        return carte;
     }
 
     private JMenu createButtonMenu() {
         JMenu file = new JMenu("Команды");
+        file.setFont(font);
         JMenuItem output = new JMenuItem("Вывести все фигуры");
         output.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
                 ActionEvent.ALT_MASK));
         output.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-
                 Container c = getContentPane();
+
                 c.remove(canvas);
-                canvas = new Graph(figures);
+                canvas.repaintGraph(figures);
                 c.add(canvas);
                 setVisible(true);
                 c.revalidate();
-
             }
         });
-
         file.add(output);
         file.add(new JSeparator());
 
@@ -104,12 +118,12 @@ public class Window extends JFrame implements ActionListener {
                 canvas.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        int x = e.getX();
-                        int y = e.getY();
-                        activeFigure = defineFigureByCursor(x, y, canvas.multiplierX, canvas.multiplierY, figures);
+                        int x = e.getX()-canvas.getWidth()/2;
+                        int y = -(e.getY()-canvas.getHeight()/2);
+
+                        activeFigure = defineFigureByCursor(x, y, canvas.multiplier, figures);
                         if (chooseFigure && activeFigure != null) {
                             JOptionPane.showMessageDialog(null, "Фигура выбрана", "title", JOptionPane.PLAIN_MESSAGE);
-
                             fig = new ArrayList<>();
                             fig.add(activeFigure);
                             canvas.repaintGraph(fig);
@@ -146,8 +160,6 @@ public class Window extends JFrame implements ActionListener {
         });
         change.add(itm);
 
-        // следующему элементу назначим быструю
-        // клавишу: ALT+A
         itm = new JMenuItem("Перемещение фигуры");
         itm.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
         itm.addActionListener(new ActionListener() {
@@ -196,9 +208,9 @@ public class Window extends JFrame implements ActionListener {
         }
     }
 
-    public Figure defineFigureByCursor(int x, int y, int multiplierX, int multiplierY, ArrayList<Figure> figures) {
+    public Figure defineFigureByCursor(int x, int y, int multiplier, ArrayList<Figure> figures) {
         for (Figure f : figures) {
-            if (f.containPoint(x, y, multiplierX, multiplierY)) return f;
+            if (f.containPoint(x, y, multiplier)) return f;
         }
         return null;
     }
@@ -214,7 +226,6 @@ public class Window extends JFrame implements ActionListener {
         JLabel rotate = new JLabel(" Введите угол поворота: ");
         JTextField rotateText = new JTextField(20);
         JButton b2 = new JButton("Ок");
-//        Font font = new Font("Verdana", Font.PLAIN, 18); шрифт
         rotateFigure.add(rotate);
         rotateFigure.add(rotateText);
         rotateFigure.add(b2);
@@ -277,7 +288,6 @@ public class Window extends JFrame implements ActionListener {
         JTextField scaleTextY = new JTextField(10);
 
         JButton b3 = new JButton("                  Ок                  ");
-//        Font font = new Font("Verdana", Font.PLAIN, 18); шрифт
         moveFigure.add(moveFig);
         moveFigure.add(X);
         moveFigure.add(scaleTextX);
@@ -325,6 +335,7 @@ public class Window extends JFrame implements ActionListener {
                     canvas.repaintGraph(figures);
                     deleteFigure.removeAll();
                     deleteFigure.revalidate();
+                    deleteFigure.dispose();
                 }
             }
         });
@@ -338,41 +349,7 @@ public class Window extends JFrame implements ActionListener {
             }
         });
     }
-//        @Override
-//        public void run() {
-//            new FileChooserEx().createUI();
-//        }
-//    };
-//
-//        EventQueue.invokeLater(r);
-//}
-//
-//    private void createUI() {
-//        JFrame frame = new JFrame();
-//        frame.setLayout(new BorderLayout());
-//
-//        JButton saveBtn = new JButton("Save");
-//        JButton openBtn = new JButton("Open");
-//
-//        saveBtn.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent arg0) {
-//                JFileChooser saveFile = new JFileChooser();
-//                saveFile.showSaveDialog(null);
-//            }
-//        });
-//
-//        openBtn.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent arg0) {
-//                JFileChooser openFile = new JFileChooser();
-//                openFile.showOpenDialog(null);
-//            }
-//        });
-//    }
-//
+
     public void selectionWindow() {
         addFigure = new JFrame("Добавление фигуры");
         addFigure.setSize(350, 500);

@@ -55,11 +55,11 @@ public class Circle extends Figure {
             "со следующими характеристиками: \n" + "периметр = " + getPerimetr() + ", \n" + "площадь = " + getArea()+ "\n ";
 }
     @Override
-    public boolean containPoint(int x, int y, int multiplierX, int multiplierY) {
+    public boolean containPoint(int x, int y, int multiplier) {
         this.getCenter();
-        int multiplier = Math.min(multiplierX, multiplierY);
-        double distance  = Math.sqrt(Math.pow(x - this.getCenter().getX()*multiplierX, 2)
-                + Math.pow(y - this.getCenter().getY()*multiplierY, 2));
+
+        double distance  = Math.sqrt(Math.pow(x - this.getCenter().getX()*multiplier, 2)
+                + Math.pow(y - this.getCenter().getY()*multiplier, 2));
         return (Math.abs(radius* multiplier-distance)<2);
     }
 
